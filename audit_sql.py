@@ -2,7 +2,7 @@
 '''auto audit sql task
 '''
 import MySQLdb
-db = MySQLdb.connect("192.168.1.1","anemometer","anemometerpass","slow_query_log_192_168_11_17")
+db = MySQLdb.connect("192.168.11.28","anemometer","anemometerpass","slow_query_log_192_168_11_17")
 
 def run():
 	cursor = db.cursor()
@@ -50,7 +50,7 @@ def run():
 	SET
 	  a.`audit_status` = 'pass' 
 	WHERE a.`audit_status` = 'refuse' 
-	  AND (a.`sample` LIKE '%show create table%' OR a.`sample` LIKE '%/*!40001 SQL_NO_CACHE */%' OR a.sample LIKE 'explain%');
+	  AND (a.`sample` LIKE '%show create table%' OR a.`sample` LIKE '%/*!40001 SQL_NO_CACHE */%' OR a.sample LIKE 'explain%' OR a.sample LIKE 'select * from%');
 	'''
 	try:
 	        cursor.execute(sql)
